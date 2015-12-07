@@ -1,14 +1,15 @@
-var socket = io(); 
+var socket = io();
 
 socket.on('connect', function(){
 	console.log('Connected to socket.io server!')
 });
 
 socket.on('message', function (message){
+	var momentTimestamp = moment.utc(message.timestamp);
 	console.log('New message:');
 	console.log(message.text);
 
-	jQuery('.messages').append('<p>'+message.text+'</p>')
+	jQuery('.messages').append('<p><strong>'+momentTimestamp.local().format('h:mm:ssa ')+':</strong> '+message.text+'</p>')
 });
 
 //HAndles submitted of new message
